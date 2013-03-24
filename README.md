@@ -1,79 +1,42 @@
-# [Raspcontrol](http://raspcontrol.com)
+# [RPiWeb](https://sites.google.com/site/davidemadrisan/opensource/rpiweb)
 
-Raspcontrol has been drastically improved since the inital release, we now have improved security, standalone deployment and many new awesome features!
+RPiWeb is a web application used to control your Raspberry Pi running on [openmamba](http://openmamba.org),
+It is intended to be used with PHP 5.4 and lighttpd.
 
-### Getting Started Guide
-##### Typical Requirements:
-
-Raspcontrol is intended to be used with the PHP 5.4 inbuilt web server.
-
-If your distribution does not support PHP 5.4 then you will need to build it from source or use a HTTP server such as Apache to access Raspcontrol.
-
-
-***
+RPiWeb is a forking of [Raspcontrol](http://raspcontrol.com).
 
 ## How to setup:
 
 ### Getting the source
 
-#### .zip Download
-
-You can download this as a _.zip_ from the GitHub Repository via the following link: 
-
-	https://github.com/Bioshox/Raspcontrol/zipball/master
-		
-#### Git Clone
-
 If you have Git installed you can clone the repo
 
-	git clone https://github.com/Bioshox/Raspcontrol.git
+	git clone https://github.com/madrisan/RPiWeb.git
 
 ### Getting it running
 
-Raspcontrol is developed to be deployed with PHP 5.4, although it is possible to deploy it with any other HTTP server too.
+Install the openmamba packages lighttpd and php
 
-#### Deploying with PHP 5.4
+	smart install lighttpd php
 
-Navigate to the location you downloaded Raspcontrol to, from that location we need to give ./start.sh Read/Write/Execute Permissions
+Configure the lighttpd web server by uncommenting the line
 
-	sudo chmod 0777 ./start.sh
-	
-Now we can deploy the server by running the command from the same location
-	
-	sudo ./start.sh
-	
-You can now access Raspcontrol from _localhost_ directly on your Pi, or the Internal IP from a different computer on your LAN and externally if you're using Port Forwarding. (Raspcontrol binds to the IP 0.0.0.0:80 by default)
+	include "conf.d/fastcgi.conf"
 
-__This will work with PHP 5.4 ONLY__ you can check your PHP version by running the command
-	
-	php -v
-	
-#### With Apache
+in the configuration file */etc/lighttpd/modules.conf* and by appending the following lines
 
-__Running Raspcontrol under Apache is considered insecure and not recomended.__
+	fastcgi.server = ( 
+	  ".php" => ((
+	    "socket" => socket_dir + "/php-fastcgi.socket",
+	    "bin-path" => "/usr/bin/php-cgi",
+	    "docroot" => "/srv/www/htdocs/"
+	  )))
+	fastcgi.map-extensions = ( ".html" => ".php" )
 
-Add www-data on Apache to the SUDOERS file
+to the file */etc/lighttpd/conf.d/fastcgi.conf*.
 
-	sudo VISUDO
+Make sure than *cgi.fix_pathinfo* is set to the default value
 
-On the last line add the following
+	cgi.fix_pathinfo = 1
 
-	www-data ALL=(ALL) NOPASSWD: ALL
-	
-__Raspcontrol is not designed for production use, adding www-data to a SUDOERS file is dangerous and is not a permanent solution.__
-		
-If you're accessing Apaches web avaliable directory on your Raspberry Pi (using startx) you can navigate to localhost/raspcontrol, if you're accessing it from another computer on your Network you will need to navigate to http://your.internal.ip/raspcontrol.
-
-### Setting up your account
-				
-Now you will be promted to setup a new account, this will create the initial user to login to the system.
-
-***	
-		
-### Thanks!
-
-Please feel free to contribute to this development!
-
-[raspcontrol.com](http://raspcontrol.com)
-
-Hosting proudly supplied by [Fusion Strike](http://fusionstrike.com)
+in the */etc/php/php.ini* file.
