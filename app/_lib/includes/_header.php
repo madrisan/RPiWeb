@@ -46,6 +46,7 @@ else
 							$warranty = exec("cat /proc/cpuinfo | grep Revision");
 							$warranty = str_ireplace('Revision	: ', '', $warranty);
 							$revision = substr($warranty, -1);
+							$serialnumber = exec("cat /proc/cpuinfo | sed -n '/^Serial/{s,Serial[\t ]*: ,,p}'");
 							switch ($revision) {
 								case 2: 
 									$revision = "Model B Revision 1.0";
@@ -78,7 +79,7 @@ else
 		                <?php echo "<strong>Kernel:</strong> ".$kernel; ?><br/>
                         <?php echo "<strong>Firmware:</strong> ".$firmware; ?><br/>
 						<?php echo "<strong>Revision:</strong> ".$revision; ?></br>
-                        <?php echo "<strong>Warranty:</strong> ".$warranty; ?>
+                        <?php echo "<strong>Serial Number:</strong> ".$serialnumber." - <strong>Warranty:</strong> ".$warranty; ?>
 
 		            </div>
 
