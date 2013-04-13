@@ -101,12 +101,12 @@ $swap = "Swap: " . $percentage . "%" . "\n" . "Free: " . $free . " MB" . "\n" . 
 $hdd = "SD Card: " . $percentage . "%" . "\n" . "Free: " . $free . "GB" . "\n" . "Used: " . $used . "GB" . "\n" . "Total: " . $total . "GB";
 
 
-	$netType = shell_exec("ifconfig");
+	$netType = shell_exec("/sbin/ifconfig");
 	$netTypeRaw = explode(" ", $netType); 
 	$netTypeFormatted = str_replace("encap:", "", $netTypeRaw);
 	
 	
-    $dataThroughput = exec("ifconfig wlan0 | grep RX\ bytes", $out);
+    $dataThroughput = exec("/sbin/ifconfig wlan0 | grep RX\ bytes", $out);
     $dataThroughput = str_ireplace("RX bytes:", "", $dataThroughput);
     $dataThroughput = str_ireplace("TX bytes:", "", $dataThroughput);
     $dataThroughput = trim($dataThroughput);
