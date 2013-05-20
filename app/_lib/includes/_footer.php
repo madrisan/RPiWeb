@@ -12,12 +12,12 @@
 			}
 			?>
 			<br/><br/>
-            Powered by <a href="http://raspcontrol.com" target="_blank">Raspcontrol</a>
+            Powered by <a href="http://www.openmamba.org" target="_blank">openmamba</a>
             
             <?php
             
             if($_Username == ""){}else{
-	            echo '<br/><br/><a href="_lib/classes/_logout.php">Logout of Raspcontrol</a><br/><br/>';
+                    echo '<br/><br/><a href="_lib/classes/_logout.php">Logout of RPiWeb</a><br/><br/>';
 				
             }
             ?>

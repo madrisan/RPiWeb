@@ -15,7 +15,7 @@ else
 
 <html>
 <head>
-    <title>Raspcontrol - The Raspberry Pi Control Centre</title>
+    <title>RPiWeb - The Raspberry Pi Control Centre for openmamba</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="_lib/styles/style.css" type="text/css" media="screen" charset="utf-8">
     <link rel="stylesheet" href="_lib/styles/menu.css" type="text/css" media="screen" charset="utf-8">
@@ -25,9 +25,9 @@ else
     <div id="topContainer">
         <div class="topWrapper">
             <div style="float: left;">
-               <h1><img src="_lib/images/smallLogo.png" style="float: left; margin-top: -15px;"> Raspcontrol.</h1>
+               <h1><img src="_lib/images/smallLogo.png" style="float: left; margin-top: -15px;"> RPiWeb</h1>
 
-                <h2>The Raspberry Pi Control Centre</h2>
+                <h2>The Raspberry Pi Control Centre for openmamba</h2>
 
             </div>
 
