@@ -59,6 +59,9 @@ else
 								case 6:
 									$revision = "Model B Revision 2.0";
 									break;
+								case f:
+									$revision = "Model B Revision 2.0 with 512M memory";
+									break;
 								default:
 									$revision = "Unknown";
 									break;
