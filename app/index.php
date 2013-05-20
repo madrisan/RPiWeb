@@ -22,7 +22,7 @@ if (file_exists($passwdfile))
            <center>
 Please login to RPiWeb<br/><br/>
             <form name="login" method="post" action="index.php">
-               <input type="text" name="username" class="loginForm" placeholder="Username" />
+               <input type="text" name="username" class="loginForm" placeholder="Username" autofocus />
                <input type="password" name="password" class="loginForm" placeholder="Password" /><br/>
                <input type="submit" value="Login" name="login" class="minimal" />
                <br/><br/>
