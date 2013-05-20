@@ -1,6 +1,8 @@
 <?php
 
 class network{
+    function networkUsage($statsOnly = 0)
+    {
 	$defaultroute = shell_exec("/bin/netstat -r | grep '^default'");
 	$keywords = preg_split("/[\s,]+/", "$defaultroute");
 	$iface = $keywords[7];
