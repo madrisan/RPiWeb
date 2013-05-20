@@ -1,28 +1,17 @@
 <?php
-/*
-function networkUsage() {
-    $string = exec("/sbin/ifconfig eth0 | grep RX\ bytes", $out);
-    $string = str_ireplace("RX bytes:", "", $string);
-    $string = str_ireplace("TX bytes:", "", $string);
-    $string = trim($string);
-    $string = explode(" ", $string);
-    $out['rx'] = ($string[0] / 1024 / 1024);
-    $out['rx'] = round($out['rx'], 2);
-    $out['tx'] = ($string[4] / 1024 / 1024);
-    $out['tx'] = round($out['tx'], 2);
-    return $out;
-}
- * */
 
 class network{
-	function networkUsage($statsOnly = 0) {
-	
-	$netType = shell_exec("/sbin/ifconfig");
+	$defaultroute = shell_exec("/bin/netstat -r | grep '^default'");
+	$keywords = preg_split("/[\s,]+/", "$defaultroute");
+	$iface = $keywords[7];
+
+	$netType = shell_exec("/sbin/ifconfig " . $iface);
 	$netTypeRaw = explode(" ", $netType); 
 	$netTypeFormatted = str_replace("encap:", "", $netTypeRaw);
 	
 	
-    $dataThroughput = exec("/sbin/ifconfig wlan0 | grep RX\ bytes", $out);
+    $dataThroughput = exec("/sbin/ifconfig " . $iface .
+                           " | grep RX\ bytes", $out);
     $dataThroughput = str_ireplace("RX bytes:", "", $dataThroughput);
     $dataThroughput = str_ireplace("TX bytes:", "", $dataThroughput);
     $dataThroughput = trim($dataThroughput);
@@ -40,13 +29,12 @@ class network{
 		$iTotalConnections--;
 		
 	if ($statsOnly) {
-		echo '"'.$netTypeFormatted[7].'" : {
+		echo '"' . $netTypeFormatted[7] ($iface). '" : {
 			"received" : "'.$rx.'MB",
 			"sent" : "'.$tx.'MB",
 			"total" : "'.$totalRxTx.'MB",
 			"active" : "'.substr($iTotalConnections, 0, -1).'"
 		}';
-		return;
 	}
 	?>
 
@@ -61,12 +49,14 @@ class network{
 		  </div>
 		  
 		  <div class="networkText">
-			<strong> <?php echo $netTypeFormatted[7]; ?> | </strong> Received: <strong><?php echo $rx; ?> MB</strong> &middot Sent: <strong><?php echo $tx; ?> MB</strong> &middot Total: <strong><?php echo $totalRxTx; ?> MB</strong> <br /> Active Network Connections: <strong><?php echo $iTotalConnections; ?></strong>
+	            <strong><?php echo "$netTypeFormatted[7] ($iface)";?> | </strong>
+		        Received: <strong><?php echo $rx;?> MB</strong> &middot
+			Sent: <strong><?php echo $tx; ?> MB</strong> &middot
+			Total: <strong><?php echo $totalRxTx; ?> MB</strong><br/>
+			Active Network Connections: <strong><?php echo $iTotalConnections; ?>
+		    </strong>
 		  </div>
-	
-	
-	
 <?php
 }
 }
-
+?>
