@@ -15,7 +15,7 @@
 		
 		<?php
                 if($_GET['action'] == 'reboot'){
-                        system('sudo reboot');
+                        system('sudo /sbin/reboot');
                 }
 	
                 if($_GET['action'] == 'stats'){

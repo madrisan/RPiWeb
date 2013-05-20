@@ -59,16 +59,13 @@ require('_lib/classes/_versionCheck.php');
 <!--
 function rebootWarn()
 {
-    var answer = confirm("WARNING: This will make your Raspberry Pi temporarily unavailable, it may also connect back to the network with a different IP.")
+    var answer = confirm("WARNING:\nThis will make your Raspberry Pi temporarily unavailable.\nIt may also connect back to the network with a different IP.")
     if (answer)
     {
-        alert("Rebooting...!")
+        alert("Rebooting...")
         window.location = "_lib/commands/_reboot.php";
     }
-    else
-    {
-        alert("Reboot Aborted")
-    }
+    return false;
 }
     
 function firmwareMsg()
