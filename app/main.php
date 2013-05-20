@@ -68,12 +68,6 @@ function rebootWarn()
     return false;
 }
     
-function firmwareMsg()
-{
-    alert("Firmware updating")
-    window.location = "_lib/commands/_updatefirmware.php";
-}
-	
 var poll = {
     "start" :
         function ()

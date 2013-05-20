@@ -108,13 +108,7 @@ else
 				<li>
 					<a href="#">System</a>
 					<ul>
-						<li><a href="_lib/commands/_updatesources.php">Update Sources</a></li>
-						<li><?php if (file_exists("/usr/bin/rpi-update")) { ?>
-                    		<a href="" onclick="firmwareMsg()">Update Firmware</a>
-							<?php } else { ?>
-		            		<a href="_lib/commands/_installfirmware.php">Install Firmware Updater</a>
-		            		<?php } ?>
-		            	</li>
+                                        	<li><a href="_lib/commands/_updaterpi.php">Install updates</a></li>
 					</ul>
 				</li>
 				<li>
