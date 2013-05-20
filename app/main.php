@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if($_SESSION['username'] == "")
@@ -17,43 +16,60 @@ require('_lib/includes/_header.php');
 require('_lib/classes/_network.php');
 require('_lib/classes/_who.php');
 require('_lib/classes/_versionCheck.php'); 
-            
 ?>
 
-<div class="versionCheckContainer"></div>
+<div class="versionCheckContainer">
+<?php
+//$versionCheck = new versionCheck; $checkVersion = $versionCheck->checkVersion();
+?>
+</div>
 
 <div id="firstBlockContainer">
   <div class="firstBlockWrapper">
-    <?php $uptime = new systemUptime; $getSystemUptime = $uptime->getSystemUptime();?>
+<?php
+$uptime = new systemUptime; $getSystemUptime = $uptime->getSystemUptime();
+?>
     <div class="clear"></div>
     <br/><br/>
-
-    <?php $load = new cpuLoad; $getLoad = $load->getCpuLoad();?>
+<?php
+$load = new cpuLoad; $getLoad = $load->getCpuLoad();
+?>
     <div class="clear"></div>
     <br/><br/>
-
-    <?php $ram = new ramPercentage; $percentage = $ram->freeMemory(); $percentage = $ram->freeSwap();?>
+<?php
+$ram = new ramPercentage; $percentage = $ram->freeMemory(); $percentage = $ram->freeSwap();
+?>
     <div class="clear"></div>
     <br/><br/>
-
-    <?php $heat = new heatPercentage; $heatpercent = $heat->getCurrentTemp(); ?>
+<?php
+$heat = new heatPercentage; $heatpercent = $heat->getCurrentTemp();
+?>
     <div class="clear"></div>
     <br/><br/>
-
-    <?php $hdd = new hddPercentage; $storagepercentage = $hdd->freeStorage();?>
+<?php
+$hdd = new hddPercentage; $storagepercentage = $hdd->freeStorage();
+?>
     <div class="clear"></div>
     <br/><br/>        	
-            
-    <?php $network = new network; $networkUseage = $network->networkUsage(); ?>
+
+<?php
+$network = new network;
+$networkUsage = $network->networkUsage();
+?>
+
     <div class="clear"></div>
     <br/><br/>
-
-    <?php $users = new usersLoggedIn; $getusers = $users->getusersLoggedIn();?>
+<?php
+$users = new usersLoggedIn;
+$getusers = $users->getusersLoggedIn();
+?>
   </div>
   <br/><br/>
 </div>
     
-<?php require('_lib/includes/_footer.php'); ?>
+<?php
+require('_lib/includes/_footer.php');
+?>
     
 <script type="text/javascript">
 <!--
@@ -70,16 +86,16 @@ function rebootWarn()
     
 var poll = {
     "start" :
-        function ()
+        function()
         {
             this.timer = setInterval("poll.update()", this.delay);
         },
-    "stop" :
+     "stop" :
         function ()
         {	
             clearInterval(this.timer);
         },
-    "update" :
+     "update" :
         function (reset)
         {
             if (reset)
@@ -87,44 +103,48 @@ var poll = {
                 this.stop();
                 this.start();
             }
+ 	
             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function()
-            {
-                if (xhr.readyState == 4 && xhr.status == 200)
+
+            xhr.onreadystatechange =
+                function()
                 {
-                    poll.success(xhr.responseText);
+                    if (xhr.readyState == 4 && xhr.status == 200)
+                    {
+                        poll.success(xhr.responseText);
+                    }
                 }
-            }
             xhr.open("get", '_lib/AJAX/update.php');
             xhr.send();
         },
-    "success" :
-        function (data)
-        {
-            var container = document.getElementById("firstBlockContainer");
-            var updateLog = document.getElementById("lastAJAXUpdate");
-            var d = new Date();
-            var time = d.toLocaleTimeString();
-            container.innerHTML = data;
-            updateLog.innerHTML = time + " (local time)";
-        },
-    "error" :
-        function ()
-        {
-            this.stop();
-            alert("Error updating!");
-        },
-    "adjustDelay" :
-        function (delay)
-        {
-            this.stop();
-            this.delay = parseInt(delay);
-            this.start();
-        },
-    "delay" : 60000,
-    "timer" : 0
+     "success" :
+         function (data)
+         {
+             var container = document.getElementById("firstBlockContainer");
+             var updateLog = document.getElementById("lastAJAXUpdate");
+             var d = new Date();
+             var time = d.toLocaleTimeString();
+             container.innerHTML = data;
+             updateLog.innerHTML = time + " (local time)";
+         },
+     "error" :
+         function ()
+         {
+             this.stop();
+             alert("Error updating!");
+         },
+     "adjustDelay" :
+         function (delay)
+         {
+             this.stop();
+             this.delay = parseInt(delay);
+             this.start();
+         },
+     "delay" : 60000,
+     "timer" : 0
 }
 
 poll.start();
 //-->
 </script>
+
