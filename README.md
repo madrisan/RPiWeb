@@ -3,7 +3,7 @@
 RPiWeb is a web application used to control your Raspberry Pi running on [openmamba](http://openmamba.org),
 It is intended to be used with PHP 5.4 and lighttpd.
 
-RPiWeb is a forking of [Raspcontrol](http://raspcontrol.com).
+RPiWeb is a forking of [Bioshox/Raspcontrol](https://github.com/Bioshox/Raspcontrol).
 
 ## How to setup:
 
