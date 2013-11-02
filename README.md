@@ -40,3 +40,11 @@ Make sure than *cgi.fix_pathinfo* is set to the default value
 	cgi.fix_pathinfo = 1
 
 in the */etc/php/php.ini* file.
+
+The PHP module for configuring the wireless interface requires the following configuration 
+for *sudo*
+
+	Defaults:lighttpd !requiretty
+	lighttpd  ALL = NOPASSWD: /usr/sbin/config-rpi-wireless, \
+	                          /usr/sbin/iwlist wlan0 scanning
+
